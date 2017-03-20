@@ -86,8 +86,8 @@ def lambda_handler(event, context):
                 
                 """move original files to backup filder"""
                 s3_resource = boto3.resource('s3')
-                s3.Object('%sunmasked'%bucket_nm,'uploads/unmasked/%s_unmasked'%file_name).copy_from(CopySource='%s/%s'%(bucket_nm,file_name))
-                s3.Object('%s'%bucket_nm,'%s'%file_name).delete()
+                s3.Object(bucket_nm,'uploads/unmasked/%s_unmasked'%file_name).copy_from(CopySource='%s/uploads/original/%s'%(bucket_nm,file_name))
+                s3.Object('%s'%bucket_nm,'uploads/original/%s'%file_name).delete()
 
             except Exception as e:
                 print(traceback.format_exc())
